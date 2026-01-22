@@ -27,21 +27,25 @@ function Invoke-UnifiApiError {
     )
 
     # Extract API error message from JSON response if available
-    $JsonError = try { $ErrorRecord.ErrorDetails.Message | ConvertFrom-Json } catch { $null }
-    $RawMessage = $JsonError?.meta?.msg ?? $ErrorRecord.Exception.Message
+    $RawMessage = try {
+        $JsonError = $ErrorRecord.ErrorDetails.Message | ConvertFrom-Json
+        $JsonError?.meta?.msg ?? $ErrorRecord.Exception.Message
+    } catch {
+        $ErrorRecord.Exception.Message
+    }
 
     # Map common API errors to user-friendly messages
     $ErrorMessage = switch -Regex ($RawMessage) {
-        'api\.err\.LoginRequired'           { "Session expired. Please run 'Connect-Unifi' again." }
-        'api\.err\.NoPermission'            { 'Access denied. Insufficient permissions for this operation.' }
-        'api\.err\.InvalidPayload'          { 'Invalid request. Check the parameters provided.' }
-        'api\.err\..*NotFound'              { 'Resource not found. Verify the site name and identifiers.' }
-        'api\.err\.DeviceNotFound'          { 'Device not found. Verify the device MAC address.' }
-        'api\.err\.InvalidSite'             { 'Invalid site. Verify the site name exists.' }
-        'certificate|SSL|TLS'               { 'Certificate validation failed. Use -SkipCertificateCheck when connecting.' }
-        'timeout|timed out'                 { 'Request timed out. Check network connectivity and controller status.' }
+        'api\.err\.LoginRequired' { "Session expired. Please run 'Connect-Unifi' again." }
+        'api\.err\.NoPermission' { 'Access denied. Insufficient permissions for this operation.' }
+        'api\.err\.InvalidPayload' { 'Invalid request. Check the parameters provided.' }
+        'api\.err\..*NotFound' { 'Resource not found. Verify the site name and identifiers.' }
+        'api\.err\.DeviceNotFound' { 'Device not found. Verify the device MAC address.' }
+        'api\.err\.InvalidSite' { 'Invalid site. Verify the site name exists.' }
+        'certificate|SSL|TLS' { 'Certificate validation failed. Use -SkipCertificateCheck when connecting.' }
+        'timeout|timed out' { 'Request timed out. Check network connectivity and controller status.' }
         'Unable to connect|Connection refused' { 'Unable to reach controller. Check network connectivity.' }
-        default                             { $RawMessage }
+        default { $RawMessage }
     }
 
     throw "Error during ${Operation}: $ErrorMessage"
