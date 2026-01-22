@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/christaylorcodes/UnifiAPI/blob/main/README.md
+    about: Check the documentation before opening an issue
+  - name: PowerShell Gallery
+    url: https://www.powershellgallery.com/packages/UnifiAPI
+    about: Install the latest version from PowerShell Gallery

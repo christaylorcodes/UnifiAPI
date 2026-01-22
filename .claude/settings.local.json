@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(powershell.exe -NoProfile -Command \".\\\\build.ps1 -ResolveDependency -Tasks build\")",
+      "Bash(powershell.exe -NoProfile -Command \"Test-ModuleManifest -Path ''source\\\\UnifiAPI.psd1'' -Verbose\")",
+      "Bash(pwsh -NoProfile -Command \".\\\\build.ps1 -ResolveDependency -Tasks build\")",
+      "Bash(pwsh -NoProfile -Command \".\\\\build.ps1 -Tasks test\")",
+      "Bash(pwsh:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+# Sampler build output
+output/
+
+# Scratch/development files
+*Scratch*.ps1
+_Scratch.ps1
+
+# PowerShell module cache
+*.psm1.bak
+
+# IDE settings
+.vscode/
+.vs/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
