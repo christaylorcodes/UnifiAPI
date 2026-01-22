@@ -251,9 +251,18 @@ jobs:
 
           Write-Host "Publishing from: $($ModulePath.FullName)"
 
-          Publish-Module -Path $ModulePath.FullName -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery -Verbose
-
-          Write-Host "Successfully published ${{ env.MODULE_NAME }} v${{ needs.build.outputs.semver }}"
+          try {
+            Publish-Module -Path $ModulePath.FullName -NuGetApiKey $env:PSGALLERY_API_KEY -Repository PSGallery -Verbose -ErrorAction Stop
+            Write-Host "Successfully published ${{ env.MODULE_NAME }} v${{ needs.build.outputs.semver }}"
+          }
+          catch {
+            if ($_.Exception.Message -match 'already available') {
+              Write-Host "Version ${{ needs.build.outputs.semver }} already published to PSGallery - skipping" -ForegroundColor Yellow
+            }
+            else {
+              throw
+            }
+          }
 
       - name: Create GitHub Release
         if: github.ref_type == 'tag'
