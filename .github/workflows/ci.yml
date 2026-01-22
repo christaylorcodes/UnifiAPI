@@ -178,7 +178,7 @@ jobs:
         shell: pwsh
         run: |
           $env:PSModulePath = "$(Resolve-Path output/RequiredModules)" + [IO.Path]::PathSeparator + $env:PSModulePath
-          ./build.ps1 -Tasks Check_Source_Formatting
+          ./build.ps1 -Tasks lint
 
   # ============================================
   # ANALYZE JOB
