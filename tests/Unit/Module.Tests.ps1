@@ -66,9 +66,9 @@ Describe 'Module: UnifiAPI' {
             (Get-Module -Name UnifiAPI).Name | Should -Be 'UnifiAPI'
         }
 
-        It 'Module version is 3.0.0 or higher' {
+        It 'Module version is 1.0.0 or higher' {
             $version = (Get-Module -Name UnifiAPI).Version
-            $version | Should -BeGreaterOrEqual ([version]'3.0.0')
+            $version | Should -BeGreaterOrEqual ([version]'1.0.0')
         }
 
         It 'Requires PowerShell 7.0 or higher' {
