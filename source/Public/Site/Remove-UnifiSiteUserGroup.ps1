@@ -57,7 +57,8 @@ function Remove-UnifiSiteUserGroup {
         if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $TargetId = $UserGroup._id
             $GroupName = $UserGroup.name
-        } else {
+        }
+        else {
             $TargetId = $UserGroupId
             $GroupName = $UserGroupId
         }

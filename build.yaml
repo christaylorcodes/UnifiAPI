@@ -33,7 +33,14 @@ BuildWorkflow:
     - Pester_Tests_Stop_On_Fail
     - Pester_if_Code_Coverage_Under_Threshold
 
-  # Note: 'analyze' task is handled directly in build.ps1
+  format:
+    - Format_Source_Code
+
+  lint:
+    - Check_Source_Formatting
+    - Invoke_PSScriptAnalyzer
+
+  # Note: 'analyze' task can also be run directly
 
   publish:
     - publish_module_to_gallery

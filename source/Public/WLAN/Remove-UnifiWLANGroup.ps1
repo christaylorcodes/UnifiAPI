@@ -53,7 +53,8 @@ function Remove-UnifiWLANGroup {
         if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $TargetId = $WLANGroup._id
             $GroupName = $WLANGroup.name
-        } else {
+        }
+        else {
             $TargetId = $WLANGroupId
             $GroupName = $WLANGroupId
         }

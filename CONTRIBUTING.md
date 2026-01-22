@@ -1,114 +1,31 @@
 # Contributing to UnifiAPI
 
-:+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
+Please refer to our organization-wide Contributing guidelines:
 
-The following is a set of guidelines for contributing. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document, or anything else in a pull request.
+**[Contributing Guidelines](https://github.com/christaylorcodes/GitHub-Template/blob/main/CONTRIBUTING.md)**
 
-## Table Of Contents
+## Project-Specific Notes
 
-[I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
+### Build Commands
 
-[How Can I Contribute?](#how-can-i-contribute)
+```powershell
+# First-time setup (installs dependencies and builds)
+.\build.ps1 -ResolveDependency
 
-- [Reporting Bugs](#reporting-bugs)
-- [Suggesting Enhancements](#suggesting-enhancements)
-- [Your First Code Contribution](#your-first-code-contribution)
-- [Pull Requests](#pull-requests)
+# Build module
+.\build.ps1 -Tasks build
 
-[Styleguides](#styleguides)
+# Run unit tests
+.\build.ps1 -Tasks test
 
-- [Git Commit Messages](#git-commit-messages)
-- [Powershell Styleguide](#powershell-styleguide)
-- [Documentation Styleguide](#documentation-styleguide)
+# Build + test (default)
+.\build.ps1
+```
 
-## I don't want to read this whole thing I just have a question
+### Documentation
 
-> **Note:** *Please don't file an issue to ask a question.* You'll get faster results by using the resources below.
+Documentation is built with [platyPS](https://github.com/PowerShell/platyPS).
 
-Join a community Slack team:
-
-- [Join the MSPGeek Slack Team](https://join.mspgeek.com/)
-- [Join the PowerShell Slack Team](https://powershell.slack.com/join/shared_invite/zt-eodd93as-RHYl6s~9XH8FNyE09M7zmA#/)
-
-  - Even though Slack is a chat service, sometimes it takes several hours for community members to respond — please be patient!
-  - Use a channel that looks appropriate for general questions or discussion
-  - There are many other channels available, check the channel list
-  - Send me a DM if you want, @CTaylor
-
-## How Can I Contribute
-
-### Reporting Bugs
-
-This section guides you through submitting a bug report. Following these guidelines helps maintainers and the community understand your report :pencil:, reproduce the behavior :computer: :computer:, and find related reports :mag_right:.
-
-Before creating bug reports, please check existing issues as you might find out that you don't need to create one. When you are creating a bug report, please include as many details as possible. Fill out template, the information it asks for helps us resolve issues faster.
-
-> **Note:** If you find a **Closed** issue that seems like it is the same thing that you're experiencing, open a new issue and include a link to the original issue in the body of your new one.
-
-#### Before Submitting A Bug Report
-
-- **Check the Wiki.** You might be able to find the cause of the problem and fix things yourself.
-- **Check the [MSPGeek Slack Team](https://join.mspgeek.com/)** for help from the community.
-
-#### How Do I Submit A (Good) Bug Report
-
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). After you've determined which repository your bug is related to, create an issue on that repository and provide the following information by filling in the template.
-
-Explain the problem and include additional details to help maintainers reproduce the problem:
-
-- **Use a clear and descriptive title** for the issue to identify the problem.
-- **Describe the exact steps which reproduce the problem** in as many details as possible.
-- **Provide specific examples to demonstrate the steps**. Include links to files or GitHub projects, or copy/pasteable snippets, which you use in those examples. If you're providing snippets in the issue, use [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-- **Describe the behavior you observed after following the steps** and point out what exactly is the problem with that behavior.
-- **Explain which behavior you expected to see instead and why.**
-
-Provide more context by answering these questions:
-
-- **Did the problem start happening recently** (e.g. after updating to a new version) or was this always a problem?
-- **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
-
-### Suggesting Enhancements
-
-This section guides you through submitting an enhancement suggestion, including completely new features and minor improvements to existing functionality. Following these guidelines helps maintainers and the community understand your suggestion :pencil: and find related suggestions :mag_right:.
-
-Before creating enhancement suggestions, please check existing suggestions as you might find out that you don't need to create one. When you are creating an enhancement suggestion, please include as many details as possible. Fill in the template, including the steps that you imagine you would take if the feature you're requesting existed.
-
-#### How Do I Submit A (Good) Enhancement Suggestion
-
-Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com/features/issues/). Create an issue and provide the following information:
-
-- **Use a clear and descriptive title** for the issue to identify the suggestion.
-- **Provide a step-by-step description of the suggested enhancement** in as many details as possible.
-- **Provide specific examples to demonstrate the steps**. Include copy/pasteable snippets which you use in those examples, as [Markdown code blocks](https://help.github.com/articles/markdown-basics/#multiple-lines).
-- **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
-- **Explain why this enhancement would be useful** to most users.
-- **Specify which version of the module you're using.**
-- **Specify the name and version of the OS you're using.**
-
-## Styleguides
-
-### Git Commit Messages
-
-- Use the present tense ("Add feature" not "Added feature")
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
-- Limit the first line to 72 characters or less
-- Reference issues and pull requests liberally after the first line
-- When only changing documentation, include `[ci skip]` in the commit title
-- Consider starting the commit message with an applicable emoji:
-  - :art: `:art:` when improving the format/structure of the code
-  - :racehorse: `:racehorse:` when improving performance
-  - :memo: `:memo:` when writing docs
-  - :bug: `:bug:` when fixing a bug
-  - :fire: `:fire:` when removing code or files
-  - :green_heart: `:green_heart:` when fixing the CI build
-  - :white_check_mark: `:white_check_mark:` when adding tests
-  - :lock: `:lock:` when dealing with security
-  - :arrow_up: `:arrow_up:` when upgrading dependencies
-
-### PowerShell Styleguide
-
-- Refer to the [unofficial guide](https://github.com/PoshCode/PowerShellPracticeAndStyle).
-
-### Documentation Styleguide
-
-- Documentation is built with [platyPS](https://github.com/PowerShell/platyPS).
+```powershell
+.\build.ps1 -Tasks docs
+```

@@ -99,7 +99,8 @@ function Set-UnifiSiteSettings {
     # Build settings body based on parameters
     $Body = if ($Settings) {
         $Settings.Clone()
-    } else {
+    }
+    else {
         @{}
     }
 

@@ -8,80 +8,72 @@
 
 <h4 align="center">
 
-PowerShell module for interacting with the Ubiquiti UniFi Controller API.
+A PowerShell module for managing Ubiquiti UniFi infrastructure via the Controller API.
 
 </h4>
 
 <div align="center">
 
-[![Gallery](https://img.shields.io/powershellgallery/v/UnifiAPI?label=PS%20Gallery&logo=powershell&logoColor=white)](https://www.powershellgallery.com/packages/UnifiAPI)
-[![Downloads](https://img.shields.io/powershellgallery/dt/UnifiAPI?label=Downloads&logo=powershell&logoColor=white)](https://www.powershellgallery.com/packages/UnifiAPI)
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/UnifiAPI?label=PSGallery&logo=powershell&logoColor=white)](https://www.powershellgallery.com/packages/UnifiAPI)
+[![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/UnifiAPI?label=Downloads&logo=powershell&logoColor=white)](https://www.powershellgallery.com/packages/UnifiAPI)
+[![CI](https://github.com/christaylorcodes/UnifiAPI/actions/workflows/ci.yml/badge.svg)](https://github.com/christaylorcodes/UnifiAPI/actions/workflows/ci.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d101c07f796c434cb56250ae80ec275c)](https://app.codacy.com/gh/christaylorcodes/UnifiAPI/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![License](https://img.shields.io/github/license/christaylorcodes/UnifiAPI)](https://github.com/christaylorcodes/UnifiAPI/blob/main/LICENSE)
-[![Donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/christaylorcodes/UnifiAPI/blob/main/DONATE.md)
 
 </div>
 
 <p align="center">
-    <a href="#functions">Functions</a> •
-    <a href="#examples">Examples</a> •
-    <a href="#install">Install</a> •
-    <a href="https://github.com/christaylorcodes/UnifiAPI/blob/main/CONTRIBUTING.md">Contribute</a> •
-    <a href="https://github.com/christaylorcodes/UnifiAPI/blob/main/CONTRIBUTING.md#reporting-bugs">Submit a Bug</a> •
-    <a href="https://github.com/christaylorcodes/UnifiAPI/blob/main/CONTRIBUTING.md#suggesting-enhancements">Request a Feature</a>
+    <a href="#-quick-start">Quick Start</a> &bull;
+    <a href="#-installation">Installation</a> &bull;
+    <a href="#-features">Features</a> &bull;
+    <a href="#-examples">Examples</a> &bull;
+    <a href="#-documentation">Documentation</a> &bull;
+    <a href="#-troubleshooting">Troubleshooting</a> &bull;
+    <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
-<!-- Summary -->
+---
 
-This module provides functions to manage UniFi network infrastructure including sites, devices, clients, WLAN configurations, firewall rules, firmware updates, backups, admin management, rogue AP detection, and more.
+## Overview
 
-<!-- Summary -->
+UnifiAPI provides **68 PowerShell functions** for comprehensive management of Ubiquiti UniFi network infrastructure. Manage sites, devices, clients, WLANs, firewall rules, firmware, and more - all from PowerShell.
 
 ## Requirements
 
-- **PowerShell 7.0 or higher** (PowerShell Core only)
-- UniFi Controller with API access
+| Requirement | Version |
+|-------------|---------|
+| PowerShell | 7.0+ (Core only) |
+| UniFi Controller | 5.x, 6.x, 7.x, 8.x |
 
-## Install
+> **Note:** Windows PowerShell 5.1 is not supported. This module requires PowerShell Core.
+
+## Installation
 
 ```powershell
-Install-Module UnifiAPI
+Install-Module -Name UnifiAPI
 ```
 
-> If you are having issues accessing the PowerShell Gallery check out my [repair script](https://github.com/christaylorcodes/Initialize-PSGallery)
+<details>
+<summary>Having trouble with PowerShell Gallery?</summary>
 
-## Examples
+If you're experiencing issues accessing the PowerShell Gallery, try this [repair script](https://github.com/christaylorcodes/Initialize-PSGallery).
+
+</details>
+
+## Quick Start
 
 ```powershell
 # Import the module
 Import-Module UnifiAPI
 
-# Connect to your UniFi Controller
-$Credential = Get-Credential
-Connect-Unifi -BaseURI 'https://unifi.example.com:8443' -Credential $Credential
+# Connect to your controller
+Connect-Unifi -BaseURI 'https://unifi.example.com:8443' -Credential (Get-Credential)
 
 # List all sites
 Get-UnifiSites
 
-# Get devices for a site
+# Get devices for a specific site
 Get-UnifiDevices -SiteName 'default'
-
-# Pipeline support - get devices for all sites
-Get-UnifiSites | Get-UnifiDevices
-
-# Get site health and statistics
-Get-UnifiSiteHealth -SiteName 'default'
-
-# Get connected clients
-Get-UnifiSiteClients -SiteName 'default'
-
-# Get all known clients with automatic pagination
-Invoke-UnifiApi -Endpoint 'stat/alluser' -SiteName 'default' -Paginate
-
-# Get firewall rules
-Get-UnifiSiteFirewallRules -SiteName 'default'
-
-# Generic API call for any endpoint
-Invoke-UnifiApi -Endpoint 'stat/health' -SiteName 'default'
 
 # Disconnect when done
 Disconnect-Unifi
@@ -89,68 +81,205 @@ Disconnect-Unifi
 
 ## Features
 
-- **68 public functions** for comprehensive UniFi Controller API management
-- **Pipeline support** - Chain commands like `Get-UnifiSites | Get-UnifiDevices`
-- **Automatic pagination** via `-Paginate` parameter in `Invoke-UnifiApi`
-- **Generic API access** - Use `Invoke-UnifiApi` to call any endpoint directly
-- **Input validation** for MAC addresses and IP addresses
-- **Module-scoped session** - No global variables polluting your environment
+- **Comprehensive Coverage** - 68 functions across 14 categories
+- **Pipeline Support** - Chain commands like `Get-UnifiSites | Get-UnifiDevices`
+- **Automatic Pagination** - Handle large datasets with `-Paginate`
+- **Generic API Access** - Call any endpoint with `Invoke-UnifiApi`
+- **Input Validation** - Built-in MAC and IP address validation
+- **Safe Operations** - `-WhatIf` and `-Confirm` for destructive commands
+- **Modern PowerShell** - Full `[CmdletBinding()]` and `[OutputType()]` support
 
-## Functions
+## Examples
 
-See the [full function reference](docs/en-US/UnifiAPI.md) for detailed documentation on all functions.
+### Basic Operations
 
-You can also use `Get-Command -Module UnifiAPI` to list available functions, or `Get-Help <FunctionName>` for help on specific functions.
+```powershell
+# Get all sites and their health status
+Get-UnifiSites | Get-UnifiSiteHealth
 
-### Function Categories
+# Find all devices across all sites
+Get-UnifiSites | Get-UnifiDevices
 
-| Category | Functions | Description |
-|----------|-----------|-------------|
+# Get connected clients for a site
+Get-UnifiSiteClients -SiteName 'default'
+```
+
+### WLAN Management
+
+```powershell
+# List all wireless networks
+Get-UnifiWLANConfigs -SiteName 'default'
+
+# Create a new WLAN (supports -WhatIf)
+New-UnifiWLAN -SiteName 'default' -Name 'Guest-WiFi' -Passphrase 'SecurePass123' -WhatIf
+```
+
+### Device Operations
+
+```powershell
+# Restart a device
+Invoke-UnifiDeviceAction -SiteName 'default' -MacAddress 'AA:BB:CC:DD:EE:FF' -Action restart
+
+# Check firmware status
+Test-UnifiFirmwareStatus -SiteName 'default'
+
+# Update firmware on all devices
+Update-UnifiFirmware -SiteName 'default'
+```
+
+### Firewall & Security
+
+```powershell
+# Get firewall rules
+Get-UnifiSiteFirewallRules -SiteName 'default'
+
+# Detect rogue access points
+Get-UnifiRogue -SiteName 'default'
+```
+
+### Generic API Access
+
+```powershell
+# Call any API endpoint directly
+Invoke-UnifiApi -Endpoint 'stat/health' -SiteName 'default'
+
+# With automatic pagination for large datasets
+Invoke-UnifiApi -Endpoint 'stat/alluser' -SiteName 'default' -Paginate
+
+# POST request with body
+Invoke-UnifiApi -Endpoint 'cmd/stamgr' -SiteName 'default' -Method Post -Body @{
+    cmd = 'kick-sta'
+    mac = 'AA:BB:CC:DD:EE:FF'
+}
+```
+
+### Backup & Restore
+
+```powershell
+# Download site backup
+Get-UnifiSiteBackup -SiteName 'default' -Path './backup.unf'
+
+# Restore from backup
+Import-UnifiSiteBackup -SiteName 'default' -Path './backup.unf'
+```
+
+## Documentation
+
+### Function Reference
+
+See the [full documentation](docs/en-US/UnifiAPI.md) for detailed help on all functions.
+
+```powershell
+# List all available commands
+Get-Command -Module UnifiAPI
+
+# Get help for a specific function
+Get-Help Connect-Unifi -Full
+Get-Help Get-UnifiDevices -Examples
+```
+
+<details>
+<summary><strong>Function Categories (click to expand)</strong></summary>
+
+| Category | Count | Description |
+|----------|-------|-------------|
 | **Connection** | 2 | `Connect-Unifi`, `Disconnect-Unifi` |
-| **Core** | 1 | `Invoke-UnifiApi` - Generic API access for any endpoint |
-| **Site** | 15 | Site management, settings, backups, user groups, migrations |
+| **Core** | 1 | `Invoke-UnifiApi` - Generic API gateway |
+| **Site** | 15 | Site management, settings, backups, migrations |
 | **Device** | 5 | Device listing, actions, removal, migration |
 | **Client** | 1 | Connected client information |
-| **WLAN** | 8 | Wireless network and WLAN group configuration |
-| **Network** | 4 | Networks, routing, port forwards, dynamic DNS |
+| **WLAN** | 8 | Wireless networks and WLAN groups |
+| **Network** | 4 | Networks, routing, port forwards, DDNS |
 | **Firewall** | 3 | Firewall rules and groups |
-| **Admin** | 6 | Administrator management and super admin permissions |
-| **Firmware** | 3 | Firmware updates and status checking |
-| **System** | 9 | Controller status, diagnostics, country codes, timezones |
-| **Statistics** | 4 | Site health, events, statistics, alarm management |
+| **Admin** | 6 | Administrator and super admin management |
+| **Firmware** | 3 | Firmware updates and status |
+| **System** | 9 | Controller status, diagnostics, timezones |
+| **Statistics** | 4 | Health, events, statistics, alarms |
 | **Logging** | 2 | Logs and alerts |
-| **Rogue** | 3 | Rogue AP, known rogue, and neighbor AP detection |
+| **Rogue** | 3 | Rogue AP and neighbor detection |
 | **RADIUS** | 2 | RADIUS profiles and accounts |
 
-## Building
+</details>
+
+## Troubleshooting
+
+### SSL Certificate Errors
+
+If connecting to a controller with a self-signed certificate:
+
+```powershell
+# Option 1: Skip certificate validation (development only)
+Connect-Unifi -BaseURI 'https://unifi:8443' -Credential $cred -SkipCertificateCheck
+
+# Option 2: Add certificate to trusted store (recommended for production)
+# Import your controller's certificate to the trusted root store
+```
+
+### Authentication Failed
+
+- Verify credentials work in the UniFi web interface
+- Ensure the account has API access enabled
+- Check if 2FA is enabled (may require app password)
+
+### Connection Timeout
+
+```powershell
+# Default timeout is 30 seconds. For slow connections:
+Connect-Unifi -BaseURI 'https://unifi:8443' -Credential $cred -TimeoutSec 60
+```
+
+### "Site not found" Errors
+
+```powershell
+# List available sites to find the correct name
+Get-UnifiSites | Select-Object name, desc
+
+# Site names are case-sensitive and use the 'name' property, not 'desc'
+```
+
+### Module Not Loading
+
+```powershell
+# Verify PowerShell version (must be 7.0+)
+$PSVersionTable.PSVersion
+
+# Check if module is installed
+Get-Module -ListAvailable UnifiAPI
+```
+
+## Building from Source
 
 This module uses [Sampler](https://github.com/gaelcolas/Sampler) for build automation.
 
 ```powershell
-# Install dependencies and build
-.\build.ps1
+# First-time setup
+./build.ps1 -ResolveDependency
 
-# Build only
-.\build.ps1 -Tasks build
+# Build
+./build.ps1 -Tasks build
 
-# Run tests
-.\build.ps1 -Tasks test
+# Test
+./build.ps1 -Tasks test
 
-# Generate documentation (platyPS)
-.\build.ps1 -Tasks docs
-
-# Package for publishing
-.\build.ps1 -Tasks pack
+# Build + Test (default)
+./build.ps1
 ```
 
-## [Contributing](https://github.com/christaylorcodes/UnifiAPI/blob/main/CONTRIBUTING.md)
+## Contributing
 
-If you use this project please give it a star and follow so you can get updated when new features are released. This also lets me know what projects are getting used and what ones I should dedicate more time to. If you want to get more involved please see the [contributing page](https://github.com/christaylorcodes/UnifiAPI/blob/main/CONTRIBUTING.md). Projects need all kinds of help even if you don't know how to code.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## [Donating](https://github.com/christaylorcodes/UnifiAPI/blob/main/DONATE.md)
+- [Report a Bug](https://github.com/christaylorcodes/UnifiAPI/issues/new?template=bug_report.md)
+- [Request a Feature](https://github.com/christaylorcodes/UnifiAPI/issues/new?template=feature_request.md)
 
-If you cant take time to contribute maybe you would like to help another way.
+## Support
 
-It takes time to maintain this project. Does the time spent on this module help you do cool things? Is that time worth a beer or two?
+If this module helps you manage your UniFi infrastructure, consider:
 
-Donations allow me to spend more time on this project and implement your feature requests.
+- Giving the project a star
+- [Contributing](CONTRIBUTING.md) code or documentation
+- [Donating](DONATE.md) to support development
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

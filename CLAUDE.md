@@ -27,6 +27,12 @@ UnifiAPI is a PowerShell 7.0+ (Core only) module for interacting with Ubiquiti U
 # Package for publishing (.nupkg)
 .\build.ps1 -Tasks pack
 
+# Format source code (PSScriptAnalyzer Invoke-Formatter)
+.\build.ps1 -Tasks format
+
+# Lint (check formatting + PSScriptAnalyzer)
+.\build.ps1 -Tasks lint
+
 # Run tests with specific tag
 .\build.ps1 -Tasks test -PesterTag 'specific-tag'
 ```

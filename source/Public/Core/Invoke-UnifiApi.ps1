@@ -118,7 +118,8 @@ function Invoke-UnifiApi {
             $Uri = if ($ApiV2) {
                 # v2 API: /v2/api/site/{site}/ or /v2/api/
                 $SiteName ? "$BaseUri/v2/api/site/$SiteName/$Endpoint" : "$BaseUri/v2/api/$Endpoint"
-            } else {
+            }
+            else {
                 # v1 API: /api/s/{site}/ for site-scoped, /api/ for global
                 $SiteName ? "$BaseUri/api/s/$SiteName/$Endpoint" : "$BaseUri/api/$Endpoint"
             }

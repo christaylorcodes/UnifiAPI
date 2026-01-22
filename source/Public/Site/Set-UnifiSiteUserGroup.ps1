@@ -88,7 +88,8 @@ function Set-UnifiSiteUserGroup {
         # Get the group ID from object if provided
         $TargetId = if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $UserGroup._id
-        } else {
+        }
+        else {
             $UserGroupId
         }
 

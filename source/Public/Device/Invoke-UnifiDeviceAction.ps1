@@ -138,8 +138,8 @@ function Invoke-UnifiDeviceAction {
 
         # Build the command body based on action
         $Body = switch ($Action) {
-            'restart'         { @{ cmd = 'restart'; mac = $NormalizedMac } }
-            'adopt'           { @{ cmd = 'adopt'; mac = $NormalizedMac } }
+            'restart' { @{ cmd = 'restart'; mac = $NormalizedMac } }
+            'adopt' { @{ cmd = 'adopt'; mac = $NormalizedMac } }
             'adopt-advanced' {
                 if (-not $Credential -or -not $SshUrl) {
                     throw "Credential and SshUrl parameters are required for adopt-advanced action"
@@ -152,9 +152,9 @@ function Invoke-UnifiDeviceAction {
                     password = $Credential.GetNetworkCredential().Password
                 }
             }
-            'provision'       { @{ cmd = 'force-provision'; mac = $NormalizedMac } }
-            'locate'          { @{ cmd = 'set-locate'; mac = $NormalizedMac } }
-            'unlocate'        { @{ cmd = 'unset-locate'; mac = $NormalizedMac } }
+            'provision' { @{ cmd = 'force-provision'; mac = $NormalizedMac } }
+            'locate' { @{ cmd = 'set-locate'; mac = $NormalizedMac } }
+            'unlocate' { @{ cmd = 'unset-locate'; mac = $NormalizedMac } }
             'upgrade' {
                 if ($FirmwareUrl) {
                     @{ cmd = 'upgrade-external'; mac = $NormalizedMac; url = $FirmwareUrl }
@@ -163,7 +163,7 @@ function Invoke-UnifiDeviceAction {
                     @{ cmd = 'upgrade'; mac = $NormalizedMac }
                 }
             }
-            'speedtest'        { @{ cmd = 'speedtest' } }
+            'speedtest' { @{ cmd = 'speedtest' } }
             'speedtest-status' { @{ cmd = 'speedtest-status' } }
             'power-cycle' {
                 if (-not $Port) {
@@ -171,13 +171,13 @@ function Invoke-UnifiDeviceAction {
                 }
                 @{ cmd = 'power-cycle'; mac = $NormalizedMac; port_idx = $Port }
             }
-            'spectrum-scan'    { @{ cmd = 'spectrum-scan'; mac = $NormalizedMac } }
+            'spectrum-scan' { @{ cmd = 'spectrum-scan'; mac = $NormalizedMac } }
             # LED and enable/disable use REST endpoint instead of cmd/devmgr
-            'led-on'           { @{ led_override = 'on' } }
-            'led-off'          { @{ led_override = 'off' } }
-            'led-default'      { @{ led_override = 'default' } }
-            'enable'           { @{ disabled = $false } }
-            'disable'          { @{ disabled = $true } }
+            'led-on' { @{ led_override = 'on' } }
+            'led-off' { @{ led_override = 'off' } }
+            'led-default' { @{ led_override = 'default' } }
+            'enable' { @{ disabled = $false } }
+            'disable' { @{ disabled = $true } }
         }
 
         $Target = $MacAddress ? $NormalizedMac : ($DeviceId ?? $SiteName)

@@ -50,7 +50,8 @@ function Set-UnifiSite {
         # Get the site name from object if provided
         $TargetSite = if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $Site.name
-        } else {
+        }
+        else {
             $SiteName
         }
 

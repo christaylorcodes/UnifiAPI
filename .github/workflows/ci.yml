@@ -157,6 +157,30 @@ jobs:
           retention-days: 30
 
   # ============================================
+  # LINT JOB (Format Check)
+  # ============================================
+  lint:
+    name: Format Check
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Required Modules
+        uses: actions/download-artifact@v4
+        with:
+          name: required-modules
+          path: output/RequiredModules
+
+      - name: Check Source Formatting
+        shell: pwsh
+        run: |
+          $env:PSModulePath = "$(Resolve-Path output/RequiredModules)" + [IO.Path]::PathSeparator + $env:PSModulePath
+          ./build.ps1 -Tasks Check_Source_Formatting
+
+  # ============================================
   # ANALYZE JOB
   # ============================================
   analyze:
@@ -206,7 +230,7 @@ jobs:
   # ============================================
   publish:
     name: Publish to PSGallery
-    needs: [build, test, analyze]
+    needs: [build, test, lint, analyze]
     runs-on: ubuntu-latest
     if: needs.build.outputs.should_publish == 'true'
     permissions:

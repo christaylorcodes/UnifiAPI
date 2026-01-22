@@ -1,0 +1,27 @@
+# Codacy configuration for UnifiAPI
+#
+# NOTE: docs/en-US/ is excluded from markdown linting because PlatyPS (v0.14.2)
+# generates markdown without proper blank lines around headings (MD022/MD032).
+# This is a known PlatyPS limitation. Review this exclusion when upgrading PlatyPS
+# to see if newer versions fix the markdown formatting.
+# Tracking: https://github.com/PowerShell/platyPS/issues
+#
+# NOTE: Build scripts and CI workflows use Write-Host intentionally for console
+# output and logging. This is appropriate for interactive scripts and CI pipelines,
+# unlike module functions which should use Write-Verbose/Write-Output.
+---
+exclude_paths:
+  # Generated documentation (PlatyPS formatting limitations)
+  - "docs/en-US/**"
+  # Build scripts (Write-Host appropriate for console output)
+  - "build.ps1"
+  - "build.ps1.sampler"
+  - "test-local.ps1"
+  # CI/CD workflows (Write-Host appropriate for pipeline logging)
+  - ".github/workflows/**"
+  # Project markdown files use inline HTML for centering/styling (common GitHub README practice)
+  - "README.md"
+  - "DONATE.md"
+  # WLAN functions use Username/Password for WiFi credentials, not authentication (false positive)
+  - "source/Public/WLAN/New-UnifiWLAN.ps1"
+  - "source/Public/WLAN/Set-UnifiWLAN.ps1"

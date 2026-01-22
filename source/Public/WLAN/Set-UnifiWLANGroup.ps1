@@ -77,7 +77,8 @@ function Set-UnifiWLANGroup {
         # Get the group ID from object if provided
         $TargetId = if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $WLANGroup._id
-        } else {
+        }
+        else {
             $WLANGroupId
         }
 
@@ -99,14 +100,16 @@ function Set-UnifiWLANGroup {
             # Need to get current list first
             $CurrentGroup = if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
                 $WLANGroup
-            } else {
+            }
+            else {
                 Invoke-UnifiApi -Endpoint 'rest/wlangroup' -SiteName $SiteName | Where-Object { $_._id -eq $TargetId }
             }
 
             # Handle null/empty device_macs array
             $CurrentMacs = if ($CurrentGroup.device_macs) {
                 @($CurrentGroup.device_macs)
-            } else {
+            }
+            else {
                 @()
             }
 

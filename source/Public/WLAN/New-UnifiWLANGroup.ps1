@@ -55,7 +55,8 @@ function New-UnifiWLANGroup {
             Test-UnifiMacAddress -MacAddress $_ -Normalize
         }
         $Body.device_macs = @($NormalizedMacs)
-    } else {
+    }
+    else {
         $Body.device_macs = @()
     }
 

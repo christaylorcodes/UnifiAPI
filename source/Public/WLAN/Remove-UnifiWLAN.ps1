@@ -56,7 +56,8 @@ function Remove-UnifiWLAN {
         if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $TargetId = $WLAN._id
             $WLANName = $WLAN.name
-        } else {
+        }
+        else {
             $TargetId = $WLANId
             $WLANName = $WLANId
         }

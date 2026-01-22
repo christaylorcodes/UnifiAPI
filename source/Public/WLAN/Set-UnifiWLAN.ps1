@@ -118,7 +118,8 @@ function Set-UnifiWLAN {
         # Get the WLAN ID from object if provided
         $TargetId = if ($PSCmdlet.ParameterSetName -eq 'ByObject') {
             $WLAN._id
-        } else {
+        }
+        else {
             $WLANId
         }
 
@@ -144,7 +145,8 @@ function Set-UnifiWLAN {
         if ($PSBoundParameters.ContainsKey('VLAN')) {
             if ($VLAN -eq 0) {
                 $Body.vlan_enabled = $false
-            } else {
+            }
+            else {
                 $Body.vlan_enabled = $true
                 $Body.vlan = $VLAN.ToString()
             }
