@@ -28,9 +28,9 @@ function Invoke-UnifiApiError {
 
     # Extract API error message from JSON response if available
     $RawMessage = try {
-        $JsonError = $ErrorRecord.ErrorDetails.Message | ConvertFrom-Json
-        $JsonError?.meta?.msg ?? $ErrorRecord.Exception.Message
-    } catch {
+        ($ErrorRecord.ErrorDetails.Message | ConvertFrom-Json)?.meta?.msg ?? $ErrorRecord.Exception.Message
+    }
+    catch {
         $ErrorRecord.Exception.Message
     }
 

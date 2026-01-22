@@ -74,26 +74,30 @@ function New-UnifiSiteUserGroup {
         [int]$UploadLimitMbps
     )
 
-    # Convert Mbps to Kbps if specified
-    $DownRate = if ($PSBoundParameters.ContainsKey('DownloadLimitMbps')) {
-        $DownloadLimitMbps * 1000
-    } else {
-        $DownloadLimit
-    }
+    process {
+        # Convert Mbps to Kbps if specified
+        $DownRate = if ($PSBoundParameters.ContainsKey('DownloadLimitMbps')) {
+            $DownloadLimitMbps * 1000
+        }
+        else {
+            $DownloadLimit
+        }
 
-    $UpRate = if ($PSBoundParameters.ContainsKey('UploadLimitMbps')) {
-        $UploadLimitMbps * 1000
-    } else {
-        $UploadLimit
-    }
+        $UpRate = if ($PSBoundParameters.ContainsKey('UploadLimitMbps')) {
+            $UploadLimitMbps * 1000
+        }
+        else {
+            $UploadLimit
+        }
 
-    $Body = @{
-        name              = $Name
-        qos_rate_max_down = $DownRate
-        qos_rate_max_up   = $UpRate
-    }
+        $Body = @{
+            name              = $Name
+            qos_rate_max_down = $DownRate
+            qos_rate_max_up   = $UpRate
+        }
 
-    if ($PSCmdlet.ShouldProcess($Name, 'Create user group')) {
-        Invoke-UnifiApi -Endpoint 'rest/usergroup' -SiteName $SiteName -Method Post -Body $Body
+        if ($PSCmdlet.ShouldProcess($Name, 'Create user group')) {
+            Invoke-UnifiApi -Endpoint 'rest/usergroup' -SiteName $SiteName -Method Post -Body $Body
+        }
     }
 }
