@@ -209,6 +209,8 @@ jobs:
     needs: [build, test, analyze]
     runs-on: ubuntu-latest
     if: needs.build.outputs.should_publish == 'true'
+    permissions:
+      contents: write  # Required to create GitHub releases
     environment:
       name: ${{ needs.build.outputs.is_prerelease == 'true' && 'prerelease' || 'production' }}
       url: https://www.powershellgallery.com/packages/${{ env.MODULE_NAME }}
