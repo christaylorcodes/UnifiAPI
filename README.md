@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="./Media/Logo.webp" alt="UnifiAPI" height="300"></a>
+  <img src="./Media/logo.webp" alt="UnifiAPI" height="300"></a>
   <br>
   UnifiAPI
   <br>
@@ -87,38 +87,40 @@ Invoke-UnifiApi -Endpoint 'stat/health' -SiteName 'default'
 Disconnect-Unifi
 ```
 
-## Version 3.0.0 Breaking Changes
+## Features
 
-- **PowerShell 7.0+ required** - No longer supports Windows PowerShell 5.1
-- **Removed all backward compatibility aliases** - Use the correct function names
-- **Removed global `$UnifiWebSession` variable** - Session is now module-scoped only
+- **68 public functions** for comprehensive UniFi Controller API management
+- **Pipeline support** - Chain commands like `Get-UnifiSites | Get-UnifiDevices`
+- **Automatic pagination** via `-Paginate` parameter in `Invoke-UnifiApi`
+- **Generic API access** - Use `Invoke-UnifiApi` to call any endpoint directly
+- **Input validation** for MAC addresses and IP addresses
+- **Module-scoped session** - No global variables polluting your environment
 
 ## Functions
 
-For the complete function reference, see the [documentation](docs/en-US/UnifiAPI.md).
+See the [full function reference](docs/en-US/UnifiAPI.md) for detailed documentation on all functions.
 
-You can also use `Get-Command -Module UnifiAPI` to list all available functions, or `Get-Help <FunctionName>` for detailed help on any function.
+You can also use `Get-Command -Module UnifiAPI` to list available functions, or `Get-Help <FunctionName>` for help on specific functions.
 
 ### Function Categories
 
-| Category | Description |
-|----------|-------------|
-| **Connection** | `Connect-Unifi`, `Disconnect-Unifi` - Session management |
-| **Core** | `Invoke-UnifiApi` - Generic API access for any endpoint |
-| **Sites** | Site management, settings, backups, and migrations |
-| **Devices** | Device listing, actions, and removal |
-| **Clients** | Connected client information |
-| **WLAN** | Wireless network configuration |
-| **Network** | Networks, routing, port forwards, dynamic DNS |
-| **Firewall** | Firewall rules and groups |
-| **Admin** | Administrator management and permissions |
-| **Firmware** | Firmware updates and status checking |
-| **Rogue AP** | Rogue and neighbor AP detection |
-| **Statistics** | Health, events, and statistics |
-| **Logging** | Logs, alerts, and alarms |
-| **Backup** | Site backup and restore |
-| **System** | Controller status and system information |
-| **RADIUS** | RADIUS profiles and accounts |
+| Category | Functions | Description |
+|----------|-----------|-------------|
+| **Connection** | 2 | `Connect-Unifi`, `Disconnect-Unifi` |
+| **Core** | 1 | `Invoke-UnifiApi` - Generic API access for any endpoint |
+| **Site** | 15 | Site management, settings, backups, user groups, migrations |
+| **Device** | 5 | Device listing, actions, removal, migration |
+| **Client** | 1 | Connected client information |
+| **WLAN** | 8 | Wireless network and WLAN group configuration |
+| **Network** | 4 | Networks, routing, port forwards, dynamic DNS |
+| **Firewall** | 3 | Firewall rules and groups |
+| **Admin** | 6 | Administrator management and super admin permissions |
+| **Firmware** | 3 | Firmware updates and status checking |
+| **System** | 9 | Controller status, diagnostics, country codes, timezones |
+| **Statistics** | 4 | Site health, events, statistics, alarm management |
+| **Logging** | 2 | Logs and alerts |
+| **Rogue** | 3 | Rogue AP, known rogue, and neighbor AP detection |
+| **RADIUS** | 2 | RADIUS profiles and accounts |
 
 ## Building
 
