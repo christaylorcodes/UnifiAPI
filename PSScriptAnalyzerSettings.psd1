@@ -5,6 +5,11 @@
     ExcludeRules = @(
         # Plural nouns are intentional for clarity (Get-UnifiDevices, Get-UnifiSites, etc.)
         'PSUseSingularNouns'
+
+        # WiFi passphrase parameters are industry standard as plain strings
+        # The UniFi API requires passphrases as strings, not SecureString
+        'PSAvoidUsingUsernameAndPasswordParams'
+        'PSAvoidUsingPlainTextForPassword'
     )
 
     Rules = @{
